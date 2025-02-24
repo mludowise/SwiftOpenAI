@@ -8,7 +8,7 @@
 import Foundation
 
 /// The fine_tuning.job object represents a [fine-tuning job](https://platform.openai.com/docs/api-reference/fine-tuning/object) that has been created through the API.
-public struct FineTuningJobObject: Decodable {
+public struct FineTuningJobObject: Decodable, Hashable {
    
    /// The object identifier, which can be referenced in the API endpoints.
    public let id: String
@@ -66,7 +66,7 @@ public struct FineTuningJobObject: Decodable {
       case validationFile = "validation_file"
    }
    
-   public struct HyperParameters: Decodable {
+   public struct HyperParameters: Decodable, Hashable {
       /// The number of epochs to train the model for. An epoch refers to one full cycle through the training dataset. "auto" decides the optimal number of epochs based on the size of the dataset. If setting the number manually, we support any number between 1 and 50 epochs.
       public let nEpochs: IntOrStringValue
       
@@ -77,7 +77,7 @@ public struct FineTuningJobObject: Decodable {
 }
 
 
-public enum IntOrStringValue: Decodable {
+public enum IntOrStringValue: Decodable, Hashable {
    
    case int(Int)
    case string(String)

@@ -8,7 +8,7 @@
 import Foundation
 
 /// Represents a [step](https://platform.openai.com/docs/api-reference/runs/step-object) in execution of a run.
-public struct RunStepObject: Codable {
+public struct RunStepObject: Codable, Hashable {
    
    /// The identifier of the run step, which can be referenced in API endpoints.
    public let id: String

@@ -24,14 +24,14 @@ import Foundation
 
 // MARK: ToolResources
 
-public struct ToolResources: Codable {
+public struct ToolResources: Codable, Hashable {
    
    public let fileSearch: FileSearch?
    public let codeInterpreter: CodeInterpreter?
    
    // MARK: FileSearch
    
-   public struct FileSearch: Codable {
+   public struct FileSearch: Codable, Hashable {
       
       /// The [vector store](https://platform.openai.com/docs/api-reference/vector-stores/object) attached to this assistant. There can be a maximum of 1 vector store attached to the assistant.
       public let vectorStoreIds: [String]?
@@ -39,7 +39,7 @@ public struct ToolResources: Codable {
       /// A helper to create a [vector store](https://platform.openai.com/docs/api-reference/vector-stores/object) with file_ids and attach it to this assistant. There can be a maximum of 1 vector store attached to the assistant.
       public let vectorStores: [VectorStore]?
       
-      public struct VectorStore: Codable {
+      public struct VectorStore: Codable, Hashable {
          
          /// A list of [file](https://platform.openai.com/docs/api-reference/files) IDs to add to the vector store. There can be a maximum of 10000 files in a vector store.
          public let fileIDS: [String]?
@@ -48,7 +48,7 @@ public struct ToolResources: Codable {
          /// Set of 16 key-value pairs that can be attached to a vector store. This can be useful for storing additional information about the vector store in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
          public let metadata: [String: String]?
          
-         public enum ChunkingStrategy: Codable {
+         public enum ChunkingStrategy: Codable, Hashable {
             case auto
             
             /// `maxChunkSizeTokens`: The maximum number of tokens in each chunk. The default value is 800. The minimum value is 100 and the maximum value is 4096.
@@ -123,7 +123,7 @@ public struct ToolResources: Codable {
    
    // MARK: CodeInterpreter
    
-   public struct CodeInterpreter: Codable {
+   public struct CodeInterpreter: Codable, Hashable {
       
       public let fileIds: [String]
       

@@ -11,7 +11,7 @@ import Foundation
 /// A [run](https://platform.openai.com/docs/api-reference/runs) object, represents an execution run on a [thread](https://platform.openai.com/docs/api-reference/threads).
 /// Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
 /// [Run Object](https://platform.openai.com/docs/api-reference/runs/object)
-public struct RunObject: Decodable {
+public struct RunObject: Decodable, Hashable {
    
    /// The identifier, which can be referenced in API endpoints.
    public let id: String
@@ -79,14 +79,14 @@ public struct RunObject: Decodable {
       case expired
    }
    
-   public struct RequiredAction: Decodable {
+   public struct RequiredAction: Decodable, Hashable {
       
       /// For now, this is always submit_tool_outputs.
       public let type: String
       /// Details on the tool outputs needed for this run to continue.
       public let submitToolsOutputs: SubmitToolOutput
       
-      public struct SubmitToolOutput: Decodable {
+      public struct SubmitToolOutput: Decodable, Hashable {
          /// A list of the relevant tool calls.
          /// - Object: ToolCall
          /// - id: The ID of the tool call. This ID must be referenced when you submit the tool outputs in using the [Submit tool outputs to run](https://platform.openai.com/docs/api-reference/runs/submitToolOutputs) endpoint.

@@ -997,7 +997,7 @@ extension OpenAIService {
    ///   - request: The `URLRequest` describing the API request.
    /// - Throws: An error if the request fails or if decoding fails.
    /// - Returns: A value of the specified decodable type.
-   public func fetch<T: Decodable>(
+   public func fetch<T: Decodable & Hashable>(
       debugEnabled: Bool,
       type: T.Type,
       with request: URLRequest)
@@ -1062,7 +1062,7 @@ extension OpenAIService {
    ///   - request: The `URLRequest` describing the API request.
    /// - Throws: An error if the request fails or if decoding fails.
    /// - Returns: An asynchronous throwing stream of the specified decodable type.
-   public func fetchStream<T: Decodable>(
+   public func fetchStream<T: Decodable & Hashable>(
       debugEnabled: Bool,
       type: T.Type,
       with request: URLRequest)

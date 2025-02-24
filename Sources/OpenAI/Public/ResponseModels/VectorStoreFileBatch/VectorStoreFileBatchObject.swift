@@ -8,7 +8,7 @@
 import Foundation
 
 /// [The vector store files batch objectBeta](https://platform.openai.com/docs/api-reference/vector-stores-file-batches/batch-object)
-public struct VectorStoreFileBatchObject: Decodable {
+public struct VectorStoreFileBatchObject: Decodable, Hashable {
    
    /// The identifier, which can be referenced in API endpoints.
    public let id: String

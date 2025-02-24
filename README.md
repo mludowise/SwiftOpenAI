@@ -2024,7 +2024,7 @@ public struct ModerationObject: Decodable {
       /// A list of the categories along with their scores as predicted by model.
       public let categoryScores: Category<Double>
       
-      public struct Category<T: Decodable>: Decodable {
+      public struct Category<T: Decodable & Hashable>: Decodable {
          
          /// Content that expresses, incites, or promotes hate based on race, gender, ethnicity, religion, nationality, sexual orientation, disability status, or caste. Hateful content aimed at non-protected groups (e.g., chess players) is harrassment.
          public let hate: T

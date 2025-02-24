@@ -8,7 +8,7 @@
 import Foundation
 
 /// The [audio](https://platform.openai.com/docs/api-reference/audio) response.
-public struct AudioObject: Decodable {
+public struct AudioObject: Decodable, Hashable {
    
    /// The language of the input audio.
    public let language: String?
@@ -21,7 +21,7 @@ public struct AudioObject: Decodable {
    /// Segments of the transcribed text and their corresponding details.
    public let segments: [Segment]?
    
-   public struct Word: Decodable {
+   public struct Word: Decodable, Hashable {
       
       /// The text content of the word.
       public let word: String
@@ -31,7 +31,7 @@ public struct AudioObject: Decodable {
       public let end: Double
    }
    
-   public struct Segment: Decodable {
+   public struct Segment: Decodable, Hashable {
       /// Unique identifier of the segment.
       public let id: Int
       /// Seek offset of the segment.

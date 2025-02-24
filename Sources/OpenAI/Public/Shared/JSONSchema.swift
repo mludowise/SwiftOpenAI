@@ -24,7 +24,7 @@ import Foundation
 /// Array
 /// Enum
 /// anyOf
-public enum JSONSchemaType: Codable, Equatable {
+public enum JSONSchemaType: Codable, Hashable, Equatable {
    case string
    case number
    case integer
@@ -105,7 +105,7 @@ public enum JSONSchemaType: Codable, Equatable {
    }
 }
 
-public class JSONSchema: Codable, Equatable {
+public class JSONSchema: Codable, Hashable, Equatable {
    
    public let type: JSONSchemaType?
    public let description: String?
@@ -149,7 +149,18 @@ public class JSONSchema: Codable, Equatable {
       lhs.enum == rhs.enum &&
       lhs.ref == rhs.ref
    }
-   
+
+    public func hash(into hasher: inout Hasher) {
+        type?.hash(into: &hasher)
+        description?.hash(into: &hasher)
+        properties?.hash(into: &hasher)
+        items?.hash(into: &hasher)
+        required?.hash(into: &hasher)
+        additionalProperties?.hash(into: &hasher)
+        `enum`?.hash(into: &hasher)
+        ref?.hash(into: &hasher)
+    }
+
    public func encode(to encoder: Encoder) throws {
       var container = encoder.container(keyedBy: CodingKeys.self)
       

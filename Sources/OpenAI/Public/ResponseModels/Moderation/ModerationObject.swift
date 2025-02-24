@@ -8,7 +8,7 @@
 import Foundation
 
 /// The [moderation object](https://platform.openai.com/docs/api-reference/moderations/object). Represents policy compliance report by OpenAI's content moderation model against a given input.
-public struct ModerationObject: Decodable {
+public struct ModerationObject: Decodable, Hashable {
    
    /// The unique identifier for the moderation request.
    public let id: String
@@ -17,7 +17,7 @@ public struct ModerationObject: Decodable {
    /// A list of moderation objects.
    public let results: [Moderation]
    
-   public struct Moderation: Decodable {
+   public struct Moderation: Decodable, Hashable {
       
       /// Whether the content violates OpenAI's usage policies.
       public let flagged: Bool
@@ -26,8 +26,8 @@ public struct ModerationObject: Decodable {
       /// A list of the categories along with their scores as predicted by model.
       public let categoryScores: Category<Double>
       
-      public struct Category<T: Decodable>: Decodable {
-         
+      public struct Category<T: Decodable & Hashable>: Decodable, Hashable {
+
          /// Content that expresses, incites, or promotes hate based on race, gender, ethnicity, religion, nationality, sexual orientation, disability status, or caste. Hateful content aimed at non-protected groups (e.g., chess players) is harrassment.
          public let hate: T
          /// Hateful content that also includes violence or serious harm towards the targeted group based on race, gender, ethnicity, religion, nationality, sexual orientation, disability status, or caste.

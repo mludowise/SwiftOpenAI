@@ -7,7 +7,7 @@
 
 import Foundation
 ///  The [content](https://platform.openai.com/docs/api-reference/messages/object#messages/object-content) of the message in array of text and/or images.
-public enum MessageContent: Codable {
+public enum MessageContent: Codable, Hashable {
    
    case imageFile(ImageFile)
    case imageUrl(ImageURL)
@@ -61,14 +61,14 @@ public enum MessageContent: Codable {
 
 // MARK: Image File
 
-public struct ImageFile: Codable {
+public struct ImageFile: Codable, Hashable {
    /// Always image_file.
    public let type: String
    
    /// References an image [File](https://platform.openai.com/docs/api-reference/files) in the content of a message.
    public let imageFile: ImageFileContent
    
-   public struct ImageFileContent: Codable {
+   public struct ImageFileContent: Codable, Hashable {
       
       /// The [File](https://platform.openai.com/docs/api-reference/files) ID of the image in the message content.
       public let fileID: String
@@ -86,14 +86,14 @@ public struct ImageFile: Codable {
 
 // MARK: Image URl
 
-public struct ImageURL: Codable {
+public struct ImageURL: Codable, Hashable {
    /// Always image_url.
    public let type: String
    
    /// References an image [File](https://platform.openai.com/docs/api-reference/files) in the content of a message.
    public let imageUrl: ImageUrlContent
    
-   public struct ImageUrlContent: Codable {
+   public struct ImageUrlContent: Codable, Hashable {
       
       /// The [File](https://platform.openai.com/docs/api-reference/files) URL  of the image in the message content.
       public let url: String
@@ -111,14 +111,14 @@ public struct ImageURL: Codable {
 
 // MARK: Text
 
-public struct Text: Codable {
+public struct Text: Codable, Hashable {
    
    /// Always text.
    public let type: String
    /// The text content that is part of a message.
    public let text: TextContent
    
-   public struct TextContent: Codable {
+   public struct TextContent: Codable, Hashable {
       // The data that makes up the text.
       public let value: String
       
@@ -128,7 +128,7 @@ public struct Text: Codable {
 
 // MARK: Annotation
 
-public enum Annotation: Codable {
+public enum Annotation: Codable, Hashable {
    
    case fileCitation(FileCitation)
    case filePath(FilePath)
@@ -179,7 +179,7 @@ public enum Annotation: Codable {
 // MARK: FileCitation
 
 /// A citation within the message that points to a specific quote from a specific File associated with the assistant or the message. Generated when the assistant uses the "retrieval" tool to search files.
-public struct FileCitation: Codable {
+public struct FileCitation: Codable, Hashable {
    
    /// Always file_citation, except when using Assistants API Beta, e.g. when using file_store search
    public let type: String?
@@ -189,7 +189,7 @@ public struct FileCitation: Codable {
    public let startIndex: Int?
    public let endIndex: Int?
    
-   public struct FileCitationDetails: Codable {
+   public struct FileCitationDetails: Codable, Hashable {
       
       /// The ID of the specific File the citation is from.
       public let fileID: String
@@ -214,7 +214,7 @@ public struct FileCitation: Codable {
 // MARK: FilePath
 
 /// A URL for the file that's generated when the assistant used the code_interpreter tool to generate a file.
-public struct FilePath: Codable {
+public struct FilePath: Codable, Hashable {
    
    /// Always file_path
    public let type: String
@@ -224,7 +224,7 @@ public struct FilePath: Codable {
    public let startIndex: Int
    public let endIndex: Int
    
-   public struct FilePathDetails: Codable {
+   public struct FilePathDetails: Codable, Hashable {
       /// The ID of the file that was generated.
       public let fileID: String
       

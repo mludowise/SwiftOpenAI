@@ -19,7 +19,7 @@ public struct MessageDeltaObject: Delta {
    /// The delta containing the fields that have changed on the Message.
    public let delta: Delta
    
-   public struct Delta: Decodable {
+   public struct Delta: Decodable, Hashable {
       
       /// The entity that produced the message. One of user or assistant.
       public let role: String?

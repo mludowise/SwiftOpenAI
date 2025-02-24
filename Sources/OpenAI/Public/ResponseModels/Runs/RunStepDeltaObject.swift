@@ -17,7 +17,7 @@ public struct RunStepDeltaObject: Delta {
    /// The delta containing the fields that have changed on the run step.
    public let delta: Delta
    
-   public struct Delta: Decodable {
+   public struct Delta: Decodable, Hashable {
       
       /// The details of the run step.
       public let stepDetails: RunStepDetails

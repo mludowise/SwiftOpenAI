@@ -8,7 +8,7 @@
 import Foundation
 
 /// [The Vector store file object](https://platform.openai.com/docs/api-reference/vector-stores-files/file-object)
-public struct VectorStoreFileObject: Decodable {
+public struct VectorStoreFileObject: Decodable, Hashable {
    
    /// The identifier, which can be referenced in API endpoints.
    public let id: String

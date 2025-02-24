@@ -8,7 +8,7 @@
 import Foundation
 
 /// The [audio speech](https://platform.openai.com/docs/api-reference/audio/createSpeech) response.
-public struct AudioSpeechObject: Decodable {
+public struct AudioSpeechObject: Decodable, Hashable {
    
    /// The audio file content.
    public let output: Data

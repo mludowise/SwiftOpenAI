@@ -9,7 +9,7 @@ import Foundation
 
 /// BETA
 /// A [thread object](https://platform.openai.com/docs/api-reference/threads) represents a thread that contains [messages](https://platform.openai.com/docs/api-reference/messages).
-public struct ThreadObject: Decodable {
+public struct ThreadObject: Decodable, Hashable {
    
    /// The identifier, which can be referenced in API endpoints.
    public let id: String

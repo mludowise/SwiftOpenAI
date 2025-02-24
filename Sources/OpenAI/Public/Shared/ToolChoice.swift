@@ -16,7 +16,7 @@ import Foundation
 /// `required` To force the model to always call one or more functions, you can set tool_choice: "required". The model will then select which function(s) to call.
 ///
 /// [Function Calling](https://platform.openai.com/docs/guides/function-calling)
-public enum ToolChoice: Codable, Equatable {
+public enum ToolChoice: Codable, Hashable, Equatable {
    case none
    case auto
    case required

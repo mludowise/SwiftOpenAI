@@ -9,7 +9,7 @@ import Foundation
 
 /// BETA.
 /// Represents an [assistant](https://platform.openai.com/docs/api-reference/assistants) that can call the model and use tools.
-public struct AssistantObject: Decodable {
+public struct AssistantObject: Decodable, Hashable {
    
    /// The identifier, which can be referenced in API endpoints.
    public let id: String
@@ -44,7 +44,7 @@ public struct AssistantObject: Decodable {
    /// Defaults to `auto`
    public var responseFormat: ResponseFormat?
    
-   public struct Tool: Codable {
+   public struct Tool: Codable, Hashable {
       
       /// The type of tool being defined.
       public let type: String

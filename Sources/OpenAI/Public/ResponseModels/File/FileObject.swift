@@ -8,7 +8,7 @@
 import Foundation
 
 /// The [File object](https://platform.openai.com/docs/api-reference/files/object) represents a document that has been uploaded to OpenAI.
-public struct FileObject: Decodable {
+public struct FileObject: Decodable, Hashable {
    
    /// The file identifier, which can be referenced in the API endpoints.
    public let id: String

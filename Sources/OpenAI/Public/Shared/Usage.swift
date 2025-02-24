@@ -9,7 +9,7 @@ import Foundation
 
 
 /// Usage statistics related to the run. This value will be null if the run is not in a terminal state (i.e. in_progress, queued, etc.).
-public struct Usage: Codable {
+public struct Usage: Codable, Hashable {
    
    /// Number of completion tokens used over the course of the run step.
    public let completionTokens: Int

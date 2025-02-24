@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ExpirationPolicy: Codable {
+public struct ExpirationPolicy: Codable, Hashable {
    
    /// Anchor timestamp after which the expiration policy applies. Supported anchors: last_active_at.
    let anchor: String

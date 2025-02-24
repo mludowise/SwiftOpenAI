@@ -20,7 +20,7 @@ import Foundation
 /// [OpenAI announcement](https://openai.com/index/introducing-structured-outputs-in-the-api/)
 ///
 /// [Documentation](https://platform.openai.com/docs/api-reference/chat/create#chat-create-response_format)
-public enum ResponseFormat: Codable, Equatable {
+public enum ResponseFormat: Codable, Hashable, Equatable {
    
    case text // The type of response format being defined: text.
    case jsonObject // The type of response format being defined: json_object.
@@ -83,7 +83,7 @@ public enum ResponseFormat: Codable, Equatable {
 
 /// [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs/structured-outputs)
 /// Specifically to be used for Response format with structured outputs.
-public struct JSONSchemaResponseFormat: Codable, Equatable {
+public struct JSONSchemaResponseFormat: Codable, Hashable, Equatable {
    let name: String
    let description: String?
    let strict: Bool

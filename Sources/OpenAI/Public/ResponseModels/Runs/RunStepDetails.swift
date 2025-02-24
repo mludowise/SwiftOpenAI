@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct RunStepDetails: Codable {
+public struct RunStepDetails: Codable, Hashable {
    
    /// `message_creation` or `tool_calls`
    public let type: String
@@ -22,7 +22,7 @@ public struct RunStepDetails: Codable {
       case toolCalls = "tool_calls"
    }
    
-   public struct MessageCreation: Codable {
+   public struct MessageCreation: Codable, Hashable {
       /// The ID of the message that was created by this run step.
       public let messageID: String
       
@@ -31,7 +31,7 @@ public struct RunStepDetails: Codable {
       }
    }
 
-   public struct ToolCall: Codable {
+   public struct ToolCall: Codable, Hashable {
       
       public let index: Int?
       public let id: String?
@@ -91,7 +91,7 @@ public struct RunStepDetails: Codable {
 // MARK: RunStepToolCall
 
 /// Details of the tool call.
-public enum RunStepToolCall: Codable {
+public enum RunStepToolCall: Codable, Hashable {
    
    case codeInterpreterToolCall(CodeInterpreterToolCall)
    case fileSearchToolCall(FileSearchToolCall)
@@ -139,7 +139,7 @@ public enum RunStepToolCall: Codable {
 
 // MARK: CodeInterpreterToolCall
 
-public struct CodeInterpreterToolCall: Codable {
+public struct CodeInterpreterToolCall: Codable, Hashable {
    public var input: String?
    public var outputs: [CodeInterpreterOutput]?
    
@@ -170,7 +170,7 @@ public struct CodeInterpreterToolCall: Codable {
    }
 }
 
-public enum CodeInterpreterOutput: Codable {
+public enum CodeInterpreterOutput: Codable, Hashable {
    
    case logs(CodeInterpreterLogOutput)
    case images(CodeInterpreterImageOutput)
@@ -212,7 +212,7 @@ public enum CodeInterpreterOutput: Codable {
 }
 
 /// Text output from the Code Interpreter tool call as part of a run step.
-public struct CodeInterpreterLogOutput: Codable {
+public struct CodeInterpreterLogOutput: Codable, Hashable {
    
    /// Always logs.
    public var type: String
@@ -225,12 +225,12 @@ public struct CodeInterpreterLogOutput: Codable {
    }
 }
 
-public struct CodeInterpreterImageOutput: Codable {
+public struct CodeInterpreterImageOutput: Codable, Hashable {
    
    public var type: String
    public var image: Image
    
-   public struct Image: Codable {
+   public struct Image: Codable, Hashable {
       /// The [file](https://platform.openai.com/docs/api-reference/files) ID of the image.
       public var fileID: String
       
@@ -251,7 +251,7 @@ public struct CodeInterpreterImageOutput: Codable {
 
 // MARK: FileSearchToolCall
 
-public struct FileSearchToolCall: Codable {
+public struct FileSearchToolCall: Codable, Hashable {
    
    /// For now, this is always going to be an empty object.
    public let fileSearch: [String: String]?
@@ -263,7 +263,7 @@ public struct FileSearchToolCall: Codable {
 
 // MARK: FunctionToolCall
 
-public struct FunctionToolCall: Codable {
+public struct FunctionToolCall: Codable, Hashable {
    
    /// The name of the function.
    public var name: String?

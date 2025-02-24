@@ -8,7 +8,7 @@
 import Foundation
 
 /// [Represents an embedding vector returned by embedding endpoint.](https://platform.openai.com/docs/api-reference/embeddings/object)
-public struct EmbeddingObject: Decodable {
+public struct EmbeddingObject: Decodable, Hashable {
    
    /// The object type, which is always "embedding".
    public let object: String

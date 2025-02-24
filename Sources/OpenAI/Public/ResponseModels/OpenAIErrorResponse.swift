@@ -18,11 +18,11 @@ import Foundation
  }
  */
 
-public struct OpenAIErrorResponse: Decodable {
+public struct OpenAIErrorResponse: Decodable, Hashable {
    
    public let error: Error
    
-   public struct Error: Decodable {
+   public struct Error: Decodable, Hashable {
       public let message: String?
       public let type: String?
       public let param: String?

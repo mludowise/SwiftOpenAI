@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct VectorStoreObject: Decodable {
+public struct VectorStoreObject: Decodable, Hashable {
    
    /// The identifier, which can be referenced in API endpoints.
    public let id: String

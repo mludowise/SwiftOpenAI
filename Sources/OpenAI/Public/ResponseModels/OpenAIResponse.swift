@@ -32,7 +32,7 @@ import Foundation
  }
  }
 */
-public struct OpenAIResponse<T: Decodable>: Decodable {
+public struct OpenAIResponse<T: Decodable & Hashable>: Decodable, Hashable {
    
    public let object: String?
    public let data: [T]
@@ -43,7 +43,7 @@ public struct OpenAIResponse<T: Decodable>: Decodable {
    public let firstID: String?
    public let lastID: String?
    
-   public struct Usage: Decodable {
+   public struct Usage: Decodable, Hashable {
       
       public let promptTokens: Int
       public let totalTokens: Int

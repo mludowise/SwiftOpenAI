@@ -27,7 +27,7 @@ public struct MessageObject: Codable {
    /// The Unix timestamp (in seconds) for when the message was completed.
    public let completedAt: Int?
    /// The entity that produced the message. One of user or assistant.
-   public let role: String
+   public let role: Role
    /// The content of the message in array of text and/or images.
    public let content: [MessageContent]
    /// If applicable, the ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) that authored this message.
@@ -39,7 +39,7 @@ public struct MessageObject: Codable {
    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
    public let metadata: [String: String]?
    
-   enum Role: String {
+    public enum Role: String, Codable {
       case user
       case assistant
    }
@@ -68,7 +68,7 @@ public struct MessageObject: Codable {
       status: String?,
       incompleteDetails: IncompleteDetails?,
       completedAt: Int?,
-      role: String,
+      role: Role,
       content: [MessageContent],
       assistantID: String?,
       runID: String?,

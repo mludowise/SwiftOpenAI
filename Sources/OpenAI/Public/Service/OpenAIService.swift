@@ -257,13 +257,13 @@ public protocol OpenAIService {
       async throws -> FileObject
    
    /// - Parameter id: The ID of the file whose content is to be retrieved.
-   /// - Returns: An array of dictionaries containing the file content.
+   /// - Returns: The file's content data.
    /// - Throws: An error if the content retrieval process fails.
    ///  For more information, refer to [OpenAI's File API documentation](https://platform.openai.com/docs/api-reference/files/retrieve-contents).
    func retrieveContentForFileWith(
       id: String)
-      async throws -> [[String: Any]]
-   
+      async throws -> Data
+
    // MARK: Images
    
    /// - Parameter parameters: Settings for the image creation request.
@@ -952,60 +952,15 @@ public protocol OpenAIService {
 
 
 extension OpenAIService {
-   
-   /// Asynchronously fetches the contents of a file that has been uploaded to OpenAI's service.
+
+   /// Asynchronously fetches data.
    ///
-   /// This method is used exclusively for retrieving the content of uploaded files.
-   ///
-   /// - Parameter request: The `URLRequest` describing the API request to fetch the file.
-   /// - Throws: An error if the request fails.
-   /// - Returns: A dictionary array representing the file contents.
-   public func fetchContentsOfFile(
-      request: URLRequest)
-      async throws -> [[String: Any]]
-   {
-      printCurlCommand(request)
-      let (data, response) = try await session.data(for: request)
-      guard let httpResponse = response as? HTTPURLResponse else {
-         throw APIError.requestFailed(description: "invalid response unable to get a valid HTTPURLResponse")
-      }
-      printHTTPURLResponse(httpResponse)
-      guard httpResponse.statusCode == 200 else {
-         var errorMessage = "status code \(httpResponse.statusCode)"
-         do {
-            let error = try decoder.decode(OpenAIErrorResponse.self, from: data)
-            errorMessage += " \(error.error.message ?? "NO ERROR MESSAGE PROVIDED")"
-         } catch {
-            // If decoding fails, proceed with a general error message
-            errorMessage = "status code \(httpResponse.statusCode)"
-         }
-         throw APIError.responseUnsuccessful(description: errorMessage,
-                                             statusCode: httpResponse.statusCode)
-      }
-      var content: [[String: Any]] = []
-      if let jsonString = String(data: data, encoding: .utf8) {
-         let lines = jsonString.split(separator: "\n")
-         for line in lines {
-            #if DEBUG
-            print("DEBUG Received line:\n\(line)")
-            #endif
-            if let lineData = line.data(using: .utf8),
-               let jsonObject = try? JSONSerialization.jsonObject(with: lineData, options: .allowFragments) as? [String: Any] {
-               content.append(jsonObject)
-            }
-         }
-      }
-      return content
-   }
-   
-   /// Asynchronously fetches audio data.
-   ///
-   /// This method is used exclusively for handling audio data responses.
+   /// This method is used exclusively for handling data responses.
    ///
    /// - Parameter request: The `URLRequest` describing the API request to fetch the file.
    /// - Throws: An error if the request fails.
-   /// - Returns: The audio Data
-   public func fetchAudio(
+   /// - Returns: The response Data
+   public func fetchData(
       with request: URLRequest)
       async throws -> Data
    {

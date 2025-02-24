@@ -107,7 +107,7 @@ struct LocalModelService: OpenAIService {
       fatalError("Currently, this API is not supported. We welcome and encourage contributions to our open-source project. Please consider opening an issue or submitting a pull request to add support for this feature.")
    }
    
-   func retrieveContentForFileWith(id: String) async throws -> [[String : Any]] {
+   func retrieveContentForFileWith(id: String) async throws -> Data {
       fatalError("Currently, this API is not supported. We welcome and encourage contributions to our open-source project. Please consider opening an issue or submitting a pull request to add support for this feature.")
    }
    

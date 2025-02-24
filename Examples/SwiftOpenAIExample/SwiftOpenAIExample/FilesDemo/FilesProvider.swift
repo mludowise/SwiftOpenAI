@@ -16,7 +16,7 @@ import SwiftUI
    var uploadedFile: FileObject? = nil
    var deletedStatus: DeletionStatus? = nil
    var retrievedFile: FileObject? = nil
-   var fileContent: [[String: Any]] = []
+   var fileContent: Data?
 
    init(service: OpenAIService) {
       self.service = service

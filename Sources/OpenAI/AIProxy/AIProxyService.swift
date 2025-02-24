@@ -87,7 +87,7 @@ struct AIProxyService: OpenAIService {
       async throws -> AudioSpeechObject
    {
       let request = try await OpenAIAPI.audio(.speech).request(aiproxyPartialKey: partialKey, clientID: clientID, organizationID: organizationID, openAIEnvironment: openAIEnvironment, method: .post, params: parameters)
-      let data = try await fetchAudio(with: request)
+      let data = try await fetchData(with: request)
       return AudioSpeechObject(output: data)
    }
 
@@ -221,10 +221,10 @@ struct AIProxyService: OpenAIService {
 
    func retrieveContentForFileWith(
       id: String)
-      async throws -> [[String: Any]]
+      async throws -> Data
    {
       let request = try await OpenAIAPI.file(.retrieveFileContent(fileID: id)).request(aiproxyPartialKey: partialKey, clientID: clientID, organizationID: organizationID, openAIEnvironment: openAIEnvironment, method: .get)
-      return try await fetchContentsOfFile(request: request)
+       return try await fetchData(with: request)
    }
 
    // MARK: Images

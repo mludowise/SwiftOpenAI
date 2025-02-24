@@ -72,7 +72,7 @@ struct DefaultOpenAIService: OpenAIService {
       async throws -> AudioSpeechObject
    {
       let request = try OpenAIAPI.audio(.speech).request(apiKey: apiKey, openAIEnvironment: openAIEnvironment, organizationID: organizationID, method: .post, params: parameters, extraHeaders: extraHeaders)
-      let data = try await fetchAudio(with: request)
+      let data = try await fetchData(with: request)
       return AudioSpeechObject(output: data)
    }
    
@@ -205,10 +205,10 @@ struct DefaultOpenAIService: OpenAIService {
    
    func retrieveContentForFileWith(
       id: String)
-      async throws -> [[String: Any]]
+      async throws -> Data
    {
       let request = try OpenAIAPI.file(.retrieveFileContent(fileID: id)).request(apiKey: apiKey, openAIEnvironment: openAIEnvironment, organizationID: organizationID, method: .get, extraHeaders: extraHeaders)
-      return try await fetchContentsOfFile(request: request)
+       return try await fetchData(with: request)
    }
    
    // MARK: Images

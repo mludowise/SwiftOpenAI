@@ -21,7 +21,7 @@ public struct MessageObject: Codable, Hashable {
    /// The [thread](https://platform.openai.com/docs/api-reference/threads) ID that this message belongs to.
    public let threadID: String
    /// The status of the message, which can be either in_progress, incomplete, or completed.
-   public let status: String?
+   public let status: Status
    /// On an incomplete message, details about why the message is incomplete.
    public let incompleteDetails: IncompleteDetails?
    /// The Unix timestamp (in seconds) for when the message was completed.
@@ -39,11 +39,17 @@ public struct MessageObject: Codable, Hashable {
    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
    public let metadata: [String: String]?
    
-    public enum Role: String, Codable {
+   public enum Role: String, Codable {
       case user
       case assistant
    }
-   
+
+   public enum Status: String, Codable {
+      case inProgress = "in_progress"
+      case incomplete
+      case completed
+   }
+
    enum CodingKeys: String, CodingKey {
       case id
       case object
@@ -65,7 +71,7 @@ public struct MessageObject: Codable, Hashable {
       object: String,
       createdAt: Int,
       threadID: String,
-      status: String?,
+      status: Status,
       incompleteDetails: IncompleteDetails?,
       completedAt: Int?,
       role: Role,

@@ -50,7 +50,7 @@ public struct MessageParameter: Encodable {
    
    /// Enum to represent different content parts (text, image URL, image file).
    public enum ContentItem: Encodable {
-      case text(Text)
+      case text(String)
       case imageURL(ImageURL)
       case imageFile(ImageFile)
       
@@ -76,44 +76,24 @@ public struct MessageParameter: Encodable {
          case imageFile = "image_file"
       }
    }
-   
-   /// Struct representing a text content part.
-   public struct Text: Encodable {
-      let text: String
-      
-      public init(text: String) {
-         self.text = text
-      }
-      
-      enum CodingKeys: String, CodingKey {
-         case type
-         case text
-      }
-      
-      public func encode(to encoder: Encoder) throws {
-         var container = encoder.container(keyedBy: CodingKeys.self)
-         try container.encode("text", forKey: .type)
-         try container.encode(text, forKey: .text)
-      }
-   }
-   
+
    /// References an image URL in the content of a message.
    public struct ImageURL: Encodable {
       
       /// The external URL of the image, must be a supported image types: jpeg, jpg, png, gif, webp.
-      let url: String
-      
+      let url: URL
+
       /// Specifies the detail level of the image. low uses fewer tokens, you can opt in to high resolution using high. Default value is auto
       let detail: DetailLevel?
       
       public init(
-         url: String,
+         url: URL,
          detail: DetailLevel? = nil)
       {
          self.url = url
          self.detail = detail
       }
-      
+
       enum CodingKeys: String, CodingKey {
          case url
          case detail

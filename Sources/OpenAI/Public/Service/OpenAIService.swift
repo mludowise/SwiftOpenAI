@@ -1237,12 +1237,71 @@ extension OpenAIService {
                                  }
                               #endif
                               }
-                           default:
-                           #if DEBUG
-                              if debugEnabled {
-                                 print("DEBUG EVENT \(eventObject.rawValue) IGNORED = \(try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any])")
-                              }
-                           #endif
+                           case .threadCreated:
+                               let decoded = try self.decoder.decode(ThreadObject.self, from: data)
+                               continuation.yield(.threadCreated(decoded))
+                           case .threadRunCreated:
+                               let decoded = try self.decoder.decode(RunObject.self, from: data)
+                               continuation.yield(.threadRunCreated(decoded))
+                           case .threadRunQueued:
+                               let decoded = try self.decoder.decode(RunObject.self, from: data)
+                               continuation.yield(.threadRunQueued(decoded))
+                           case .threadRunInProgress:
+                               let decoded = try self.decoder.decode(RunObject.self, from: data)
+                               continuation.yield(.threadRunInProgress(decoded))
+                           case .threadRunRequiresAction:
+                               let decoded = try self.decoder.decode(RunObject.self, from: data)
+                               continuation.yield(.threadRunRequiresAction(decoded))
+                           case .threadRunCompleted:
+                               let decoded = try self.decoder.decode(RunObject.self, from: data)
+                               continuation.yield(.threadRunCompleted(decoded))
+                           case .threadRunFailed:
+                               let decoded = try self.decoder.decode(RunObject.self, from: data)
+                               continuation.yield(.threadRunFailed(decoded))
+                           case .threadRunCancelling:
+                               let decoded = try self.decoder.decode(RunObject.self, from: data)
+                               continuation.yield(.threadRunCancelling(decoded))
+                           case .threadRunCancelled:
+                               let decoded = try self.decoder.decode(RunObject.self, from: data)
+                               continuation.yield(.threadRunCancelled(decoded))
+                           case .threadRunExpired:
+                               let decoded = try self.decoder.decode(RunObject.self, from: data)
+                               continuation.yield(.threadRunExpired(decoded))
+                           case .threadRunStepCreated:
+                               let decoded = try self.decoder.decode(RunStepObject.self, from: data)
+                               continuation.yield(.threadRunStepCreated(decoded))
+                           case .threadRunStepInProgress:
+                               let decoded = try self.decoder.decode(RunStepObject.self, from: data)
+                               continuation.yield(.threadRunStepInProgress(decoded))
+                           case .threadRunStepCompleted:
+                               let decoded = try self.decoder.decode(RunStepObject.self, from: data)
+                               continuation.yield(.threadRunStepCompleted(decoded))
+                           case .threadRunStepFailed:
+                               let decoded = try self.decoder.decode(RunStepObject.self, from: data)
+                               continuation.yield(.threadRunStepFailed(decoded))
+                           case .threadRunStepCancelled:
+                               let decoded = try self.decoder.decode(RunStepObject.self, from: data)
+                               continuation.yield(.threadRunStepCancelled(decoded))
+                           case .threadRunStepExpired:
+                               let decoded = try self.decoder.decode(RunStepObject.self, from: data)
+                               continuation.yield(.threadRunStepExpired(decoded))
+                           case .threadMessageCreated:
+                               let decoded = try self.decoder.decode(MessageObject.self, from: data)
+                               continuation.yield(.threadMessageCreated(decoded))
+                           case .threadMessageInProgress:
+                               let decoded = try self.decoder.decode(MessageObject.self, from: data)
+                               continuation.yield(.threadMessageInProgress(decoded))
+                           case .threadMessageCompleted:
+                               let decoded = try self.decoder.decode(MessageObject.self, from: data)
+                               continuation.yield(.threadMessageCompleted(decoded))
+                           case .threadMessageIncomplete:
+                               let decoded = try self.decoder.decode(MessageObject.self, from: data)
+                               continuation.yield(.threadMessageIncomplete(decoded))
+                           case .error:
+                               let decoded = try self.decoder.decode(OpenAIErrorResponse.self, from: data)
+                               continuation.yield(.error(decoded))
+                           case .done:
+                               continuation.yield(.done)
                            }
                         } else {
                            #if DEBUG

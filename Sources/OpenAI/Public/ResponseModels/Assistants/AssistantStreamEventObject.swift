@@ -91,9 +91,6 @@ public enum AssistantStreamEventObject: String {
    /// - data is a [message](https://platform.openai.com/docs/api-reference/messages/object)
    case threadMessageInProgress = "thread.message.in_progress"
    
-   /// Not documented
-   case threadMessage = "thread.message"
-   
    /// Occurs when parts of a message are being streamed.
    /// - data is a [message delta](https://platform.openai.com/docs/api-reference/assistants-streaming/message-delta-object)
    case threadMessageDelta = "thread.message.delta"
@@ -109,7 +106,7 @@ public enum AssistantStreamEventObject: String {
    /// Occurs when an error occurs. This can happen due to an internal server error or a timeout.
    /// - data is an error
    case error
-   
+
    /// Occurs when a stream ends.
    /// - data is [DONE]
    case done

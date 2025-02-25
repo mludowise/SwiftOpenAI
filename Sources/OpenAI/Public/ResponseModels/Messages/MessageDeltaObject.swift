@@ -22,18 +22,8 @@ public struct MessageDeltaObject: Delta {
    public struct Delta: Decodable, Hashable {
       
       /// The entity that produced the message. One of user or assistant.
-      public let role: String?
+      public let role: MessageObject.Role?
       /// The content of the message in array of text and/or images.
       public let content: [MessageContent]
-
-      enum Role: String {
-         case user
-         case assistant
-      }
-      
-      enum CodingKeys: String, CodingKey {
-         case role
-         case content
-      }
    }
 }

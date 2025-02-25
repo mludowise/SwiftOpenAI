@@ -87,7 +87,7 @@ public struct MessageParameter: Encodable {
       let detail: DetailLevel?
       
       public init(
-         url: URL,
+         url: String,
          detail: DetailLevel? = nil)
       {
          self.url = url

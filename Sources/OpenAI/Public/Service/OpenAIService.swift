@@ -1190,16 +1190,18 @@ extension OpenAIService {
       return AsyncThrowingStream { continuation in
          let task = Task {
             do {
+               var event: String?
                for try await line in data.lines {
-                  if line.hasPrefix("data:") && line != "data: [DONE]",
-                     let data = line.dropFirst(5).data(using: .utf8) {
+                  if line.hasPrefix("event:") {
+                     event = line.dropFirst(6).trimmingCharacters(in: .whitespaces)
+                  } else if line == "data: [DONE]" {
+                     continuation.yield(.done)
+                  } else if line.hasPrefix("data:"),
+                            let data = line.dropFirst(5).data(using: .utf8) {
                      do {
-                        if
-                           let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
-                           let object = json["object"] as? String,
-                           let eventObject = AssistantStreamEventObject(rawValue: object)
-                        {
-                           switch eventObject {
+                        if let event,
+                           let eventType = AssistantStreamEventObject(rawValue: event) {
+                           switch eventType {
                            case .threadMessageDelta:
                               let decoded = try self.decoder.decode(MessageDeltaObject.self, from: data)
                               continuation.yield(.threadMessageDelta(decoded))
@@ -1306,7 +1308,9 @@ extension OpenAIService {
                         } else {
                            #if DEBUG
                            if debugEnabled {
-                              print("DEBUG EVENT DECODE IGNORED = \(try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any])")
+                              print(
+                                 "DEBUG EVENT DECODE IGNORED: event = \(String(describing: event)), data = \(try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any])"
+                              )
                            }
                            #endif
                         }

@@ -9,7 +9,7 @@ import Foundation
 
 public struct LastError: Codable, Hashable {
    /// One of server_error or rate_limit_exceeded.
-   let code: String
+   public let code: String
    /// A human-readable description of the error.
-   let message: String
+   public let message: String
 }

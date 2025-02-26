@@ -78,11 +78,11 @@ public struct MessageParameter: Encodable {
    public struct ImageURL: Encodable {
       
       /// The external URL of the image, must be a supported image types: jpeg, jpg, png, gif, webp.
-      let url: String
+      public let url: String
 
       /// Specifies the detail level of the image. low uses fewer tokens, you can opt in to high resolution using high. Default value is auto
-      let detail: DetailLevel?
-      
+       public let detail: DetailLevel?
+
       public init(
          url: String,
          detail: DetailLevel? = nil)
@@ -101,9 +101,9 @@ public struct MessageParameter: Encodable {
    public struct ImageFile: Encodable {
       
       /// The [File](https://platform.openai.com/docs/api-reference/files) ID of the image in the message content. Set purpose="vision" when uploading the File if you need to later display the file content.
-      let fileId: String
+       public let fileId: String
       /// Specifies the detail level of the image if specified by the user. low uses fewer tokens, you can opt in to high resolution using high.
-      let detail: DetailLevel?
+       public let detail: DetailLevel?
       
       public init(
          fileId: String,
